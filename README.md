@@ -19,3 +19,4 @@ Sistema modular desenvolvido em Python com foco em acessibilidade visual, navega
 2. No terminal, execute o módulo principal:
    ```bash
    python3 main.py
+

@@ -1,8 +1,10 @@
 import unittest
+from unittest.mock import patch
 import os
 import sqlite3
-from acessibilidade import validar_entrada_texto
+from acessibilidade import validar_entrada_texto, aplicar_modo_acessivel
 from banco import inicializar_banco, salvar_usuario_db
+from tutorial import LISTA_TUTORIAIS
 
 class TestAssistenteInclusao(unittest.TestCase):
 
@@ -14,6 +16,20 @@ class TestAssistenteInclusao(unittest.TestCase):
     def test_validacao_texto_valido(self):
         """Garante que entradas válidas sejam aceitas."""
         self.assertTrue(validar_entrada_texto("1"))
+
+    def test_aplicar_modo_acessivel(self):
+        """Valida se a função de acessibilidade executa sem erros."""
+        try:
+            aplicar_modo_acessivel("Grande (18pt)")
+            sucesso = True
+        except Exception:
+            sucesso = False
+        self.assertTrue(sucesso)
+
+    def test_lista_tutoriais_existencia(self):
+        """Garante que os tutoriais cadastrados possuem dados válidos."""
+        self.assertGreater(len(LISTA_TUTORIAIS), 0)
+        self.assertEqual(LISTA_TUTORIAIS[0]["id"], 1)
 
     def test_persistencia_banco_sqlite(self):
         """Verifica se o banco inicializa e grava um usuário corretamente."""
