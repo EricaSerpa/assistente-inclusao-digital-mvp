@@ -1,10 +1,10 @@
 import unittest
 from unittest.mock import patch
-import os
 import sqlite3
 from acessibilidade import validar_entrada_texto, aplicar_modo_acessivel
 from banco import inicializar_banco, salvar_usuario_db
-from tutorial import LISTA_TUTORIAIS
+from cadastro import cadastrar_usuario
+from tutorial import LISTA_TUTORIAIS, listar_tutoriais
 
 class TestAssistenteInclusao(unittest.TestCase):
 
@@ -49,6 +49,33 @@ class TestAssistenteInclusao(unittest.TestCase):
         self.assertIsNotNone(resultado)
         self.assertEqual(resultado[0], "Teste Unitário")
         self.assertEqual(resultado[1], 72)
+
+    @patch("builtins.input", side_effect=["2", "A", "Joana Silva", "65"])
+    def test_cadastro_resiliente_apos_erro_nome(self, mock_input):
+        """Valida se o cadastro solicita novo nome após entrada inválida sem abortar."""
+        usuario = cadastrar_usuario()
+        
+        # Limpa o registro de teste do banco
+        conn = sqlite3.connect("assistente.db")
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM usuarios WHERE nome = 'Joana Silva'")
+        conn.commit()
+        conn.close()
+
+        self.assertIsNotNone(usuario)
+        self.assertEqual(usuario["nome"], "Joana Silva")
+        self.assertEqual(usuario["perfil"], "Terceira Idade")
+
+    @patch("builtins.input", side_effect=["99", "1", "", "0"])
+    def test_navegacao_resiliente_tutoriais(self, mock_input):
+        """Valida tratamento de opção inválida, conclusão de aula e retorno seguro."""
+        usuario_teste = {"nome": "Maria Silva", "idade": 62, "perfil": "Terceira Idade"}
+        try:
+            listar_tutoriais(usuario_teste)
+            executou_sem_erro = True
+        except Exception:
+            executou_sem_erro = False
+        self.assertTrue(executou_sem_erro)
 
 if __name__ == "__main__":
     unittest.main()

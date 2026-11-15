@@ -23,25 +23,30 @@ LISTA_TUTORIAIS = [
 
 def listar_tutoriais(usuario):
     """
-    Exibe a lista de tutoriais disponíveis formatados com linguagem simplificada
-    e fontes amigáveis para a terceira idade.
+    Exibe a lista de tutoriais disponíveis formatados com linguagem simplificada,
+    navegação resiliente e confirmação visual de conclusão.
     """
-    print(f"\n" + "="*50)
-    print(f"   TUTORIAIS DISPONÍVEIS PARA: {usuario['nome'].upper()}")
-    print("="*50)
-    print("Dica de acessibilidade: Conteúdo adaptado com leitura facilitada.\n")
-    
-    for tutorial in LISTA_TUTORIAIS:
-        print(f"[{tutorial['id']}] {tutorial['titulo']}")
-        print(f"    Resumo: {tutorial['descricao']}")
-        print(f"    Nível: {tutorial['nivel']}")
-        print("-" * 50)
+    while True:
+        print(f"\n" + "="*50)
+        print(f"   TUTORIAIS DISPONÍVEIS PARA: {usuario['nome'].upper()}")
+        print("="*50)
+        print("Dica de acessibilidade: Conteúdo adaptado com leitura facilitada.\n")
         
-    escolha = input("Digite o número do tutorial que deseja abrir (ou 0 para voltar): ").strip()
-    
-    if escolha.isdigit():
+        for tutorial in LISTA_TUTORIAIS:
+            print(f"[{tutorial['id']}] {tutorial['titulo']}")
+            print(f"    Resumo: {tutorial['descricao']}")
+            print(f"    Nível: {tutorial['nivel']}")
+            print("-" * 50)
+            
+        escolha = input("Digite o número do tutorial que deseja abrir (ou 0 para voltar ao menu): ").strip()
+        
+        if not escolha.isdigit():
+            print("\n[Aviso] Entrada inválida. Digite apenas o número da aula ou 0 para voltar.")
+            continue
+
         id_escolhido = int(escolha)
         if id_escolhido == 0:
+            print("\n[Navegação] Retornando ao menu principal...")
             return
             
         tutorial_selecionado = next((t for t in LISTA_TUTORIAIS if t['id'] == id_escolhido), None)
@@ -52,8 +57,7 @@ def listar_tutoriais(usuario):
             print(f" >>> {tutorial_selecionado['descricao']}")
             print(" [Modo de Leitura Ampliada Ativo - Fonte 18pt]")
             print("~"*50)
-            input("\nPressione ENTER para concluir a leitura e voltar ao menu...")
+            input("\nPressione ENTER para concluir a leitura...")
+            print(f"\n[Concluído] Parabéns, {usuario['nome']}! Você finalizou: '{tutorial_selecionado['titulo']}'.")
         else:
-            print("\n[Aviso] Tutorial não encontrado. Verifique o número digitado.")
-    else:
-        print("\n[Aviso] Entrada inválida.")
+            print("\n[Aviso] Tutorial não encontrado. Escolha uma opção da lista ou 0 para voltar.")

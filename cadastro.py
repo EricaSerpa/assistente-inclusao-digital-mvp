@@ -6,17 +6,18 @@ from banco import inicializar_banco, salvar_usuario_db
 def cadastrar_usuario():
     """
     Realiza o cadastro simplificado do usuário, valida as entradas
-    e salva os dados de forma permanente no banco SQLite.
+    de forma resiliente e salva os dados no banco SQLite.
     """
     # Garante que o banco e a tabela existem antes de inserir
     inicializar_banco()
     
     print("\n--- CADASTRO SIMPLIFICADO DE ALUNO ---")
-    nome = input("Digite o seu nome completo: ").strip()
     
-    if not nome or len(nome) < 2:
-        print("[Erro] O nome digitado é inválido ou muito curto.")
-        return None
+    while True:
+        nome = input("Digite o seu nome completo: ").strip()
+        if nome and len(nome) >= 2 and not nome.isdigit():
+            break
+        print("[Aviso] Nome inválido. Por favor, digite seu nome completo (mínimo 2 letras).")
 
     while True:
         idade_str = input("Digite a sua idade: ").strip()
