@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro - Assistente Digital</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="phone-container">
+
+        <div class="app-header">
+            ASSISTENTE DIGITAL
+        </div>
+
+        <div class="app-body">
+
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="flash-success">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+
+            <section class="cadastro-section">
+
+                <h2>Bem-vindo(a)!</h2>
+
+                <p>
+                    Vamos começar? Informe seus dados
+                    para acessar o assistente.
+                </p>
+
+                <form action="{{ url_for('cadastrar_web') }}" method="POST">
+
+                    <label for="nome">Seu nome:</label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Digite seu nome"
+                        required
+                        minlength="2"
+                    >
+
+                    <label for="idade">Sua idade:</label>
+
+                    <input
+                        type="number"
+                        id="idade"
+                        name="idade"
+                        placeholder="Digite sua idade"
+                        min="1"
+                        max="119"
+                        required
+                    >
+
+                    <button type="submit" class="cadastro-btn">
+                        REALIZAR CADASTRO
+                    </button>
+
+                </form>
+
+            </section>
+
+        </div>
+
+        <div class="app-footer">
+
+            <a href="{{ url_for('home') }}" class="nav-item">
+                <span>🏠</span>
+                <span>INÍCIO</span>
+            </a>
+
+            <a href="{{ url_for('cadastro') }}" class="nav-item">
+                <span>👤</span>
+                <span>CADASTRO</span>
+            </a>
+
+            <a href="{{ url_for('tutoriais') }}" class="nav-item">
+                <span>📖</span>
+                <span>APRENDER</span>
+            </a>
+
+            <a href="{{ url_for('seguranca') }}" class="nav-item">
+                <span>🛡️</span>
+                <span>SEGURANÇA</span>
+            </a>
+
+            <a href="{{ url_for('ajuda') }}" class="nav-item">
+                <span>❓</span>
+                <span>AJUDA</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

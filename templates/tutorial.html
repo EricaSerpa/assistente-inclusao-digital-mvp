@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ tutorial.titulo }} - Assistente Digital</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="phone-container">
+
+        <div class="app-header">
+            ASSISTENTE DIGITAL
+        </div>
+
+        <div class="app-body">
+
+            <section class="tutorial-section">
+
+                <!-- Controles de tamanho da fonte -->
+                <div class="controle-fonte">
+
+                    <span>Ajustar tamanho das letras:</span>
+
+                    <button
+                        type="button"
+                        onclick="alterarFonte(1)"
+                        aria-label="Aumentar tamanho das letras">
+                        A+
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="alterarFonte(-1)"
+                        aria-label="Diminuir tamanho das letras">
+                        A-
+                    </button>
+
+                </div>
+
+                <h2>{{ tutorial.titulo }}</h2>
+
+                <p>{{ tutorial.descricao }}</p>
+
+                <p class="tutorial-nivel">
+                    Nível: {{ tutorial.nivel }}
+                </p>
+
+                <h3>Vamos aprender juntos!</h3>
+
+                <ol class="passos-tutorial">
+                    {% for passo in tutorial.passos %}
+                        <li>{{ passo }}</li>
+                    {% endfor %}
+                </ol>
+
+                <!-- Controles de leitura em voz alta -->
+                <div class="leitura-voz">
+
+                    <button
+                        type="button"
+                        id="ouvir-btn"
+                        class="voz-btn"
+                        onclick="lerTutorial()">
+                        🔊 OUVIR TUTORIAL
+                    </button>
+
+                    <button
+                        type="button"
+                        id="parar-btn"
+                        class="parar-voz-btn"
+                        onclick="pararLeitura()">
+                        ⏹ PARAR LEITURA
+                    </button>
+
+                    <p id="status-leitura" aria-live="polite">
+                        Toque em Ouvir Tutorial para escutar esta aula.
+                    </p>
+
+                </div>
+
+                <div class="dica-tutorial">
+                    Faça cada etapa com calma. Não tenha pressa!
+                    Se precisar, peça ajuda a alguém de confiança.
+                </div>
+
+                <a href="{{ url_for('tutoriais') }}" class="voltar-btn">
+                    VOLTAR AO APRENDIZADO
+                </a>
+
+            </section>
+
+        </div>
+
+        <div class="app-footer">
+
+            <a href="{{ url_for('home') }}" class="nav-item">
+                <span>🏠</span>
+                <span>INÍCIO</span>
+            </a>
+
+            <a href="{{ url_for('cadastro') }}" class="nav-item">
+                <span>👤</span>
+                <span>CADASTRO</span>
+            </a>
+
+            <a href="{{ url_for('tutoriais') }}" class="nav-item">
+                <span>📖</span>
+                <span>APRENDER</span>
+            </a>
+
+            <a href="{{ url_for('seguranca') }}" class="nav-item">
+                <span>🛡️</span>
+                <span>SEGURANÇA</span>
+            </a>
+
+            <a href="{{ url_for('ajuda') }}" class="nav-item">
+                <span>❓</span>
+                <span>AJUDA</span>
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // LEITURA DO TUTORIAL EM VOZ ALTA
+
+        function lerTutorial() {
+
+            if (!('speechSynthesis' in window)) {
+                document.getElementById('status-leitura').textContent =
+                    'Seu navegador não oferece suporte à leitura em voz alta.';
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const titulo = document.querySelector('.tutorial-section h2').innerText;
+
+            const descricao = document.querySelector('.tutorial-section > p').innerText;
+
+            const passos = document.querySelectorAll('.passos-tutorial li');
+
+            let texto = titulo + '. ' + descricao + '. Vamos aprender juntos. ';
+
+            passos.forEach(function(passo, indice) {
+                texto += 'Passo ' + (indice + 1) + '. ' + passo.innerText + '. ';
+            });
+
+            const fala = new SpeechSynthesisUtterance(texto);
+
+            fala.lang = 'pt-BR';
+            fala.rate = 0.85;
+            fala.pitch = 1;
+
+            fala.onstart = function() {
+                document.getElementById('status-leitura').textContent =
+                    'O assistente está lendo o tutorial. Aguarde...';
+            };
+
+            fala.onend = function() {
+                document.getElementById('status-leitura').textContent =
+                    'Leitura concluída! Você pode ouvir novamente.';
+            };
+
+            fala.onerror = function() {
+                document.getElementById('status-leitura').textContent =
+                    'Não foi possível realizar a leitura. Tente novamente.';
+            };
+
+            window.speechSynthesis.speak(fala);
+        }
+
+
+        // PARAR LEITURA EM VOZ ALTA
+
+        function pararLeitura() {
+
+            if ('speechSynthesis' in window) {
+
+                window.speechSynthesis.cancel();
+
+                document.getElementById('status-leitura').textContent =
+                    'Leitura interrompida.';
+            }
+        }
+
+
+        // AUMENTAR E DIMINUIR TAMANHO DA FONTE
+
+        let escalaFonte = 1;
+
+        function alterarFonte(variacao) {
+
+            escalaFonte += variacao * 0.1;
+
+            if (escalaFonte < 0.8) {
+                escalaFonte = 0.8;
+            }
+
+            if (escalaFonte > 1.5) {
+                escalaFonte = 1.5;
+            }
+
+            document.querySelector('.tutorial-section').style.zoom =
+                escalaFonte;
+        }
+
+    </script>
+
+</body>
+</html>
+

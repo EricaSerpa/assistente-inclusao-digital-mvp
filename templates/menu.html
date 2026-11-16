@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Menu de Aprendizado - Assistente Digital</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="phone-container">
+
+        <div class="app-header">
+            MENU DE APRENDIZADO
+        </div>
+
+        <div class="app-body">
+
+            <section class="tutorial-section aprendizado-section">
+
+                <h2>O que você gostaria de aprender?</h2>
+
+                <p>
+                    Escolha um assunto abaixo. Vamos aprender juntos,
+                    passo a passo!
+                </p>
+
+                {% for tutorial in tutoriais %}
+
+                    <div class="aprendizado-card">
+
+                        <h3>{{ tutorial.titulo }}</h3>
+
+                        <p>{{ tutorial.descricao }}</p>
+
+                        <a href="{{ url_for('abrir_tutorial', id_tutorial=tutorial.id) }}"
+                           class="voltar-btn">
+                            COMEÇAR
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </section>
+
+        </div>
+
+        <div class="app-footer">
+
+            <a href="{{ url_for('home') }}" class="nav-item">
+                <span>🏠</span>
+                <span>INÍCIO</span>
+            </a>
+
+            <a href="{{ url_for('cadastro') }}" class="nav-item">
+                <span>👤</span>
+                <span>CADASTRO</span>
+            </a>
+
+            <a href="{{ url_for('tutoriais') }}" class="nav-item">
+                <span>📖</span>
+                <span>APRENDER</span>
+            </a>
+
+            <a href="{{ url_for('seguranca') }}" class="nav-item">
+                <span>🛡️</span>
+                <span>SEGURANÇA</span>
+            </a>
+
+            <a href="{{ url_for('ajuda') }}" class="nav-item">
+                <span>❓</span>
+                <span>AJUDA</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

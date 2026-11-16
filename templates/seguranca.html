@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Segurança e Alertas - Assistente Digital</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="phone-container">
+
+        <div class="app-header">
+            SEGURANÇA DIGITAL
+        </div>
+
+        <div class="app-body">
+
+            <div class="controle-fonte">
+                <span>Ajustar tamanho do texto:</span>
+
+                <button type="button" class="fonte-btn"
+                    onclick="ajustarFonte(1)"
+                    aria-label="Aumentar tamanho do texto">
+                    A+
+                </button>
+
+                <button type="button" class="fonte-btn"
+                    onclick="ajustarFonte(-1)"
+                    aria-label="Diminuir tamanho do texto">
+                    A−
+                </button>
+            </div>
+
+            <section class="tutorial-section seguranca-section"
+                id="conteudo-seguranca">
+
+                <h2>Fique atento aos perigos da internet!</h2>
+
+                <p>
+                    Algumas mensagens e ligações podem esconder tentativas
+                    de golpe. Veja como se proteger.
+                </p>
+
+                <div class="tutorial-card">
+                    <h3>⚠️ Cuidado com mensagens suspeitas</h3>
+                    <p>
+                        Desconfie de mensagens que pedem dinheiro,
+                        senhas ou dados pessoais com urgência.
+                    </p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h3>🔐 Proteja suas senhas</h3>
+                    <p>
+                        Não compartilhe suas senhas. Evite usar a mesma
+                        senha em todos os aplicativos.
+                    </p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h3>💰 Segurança no Pix</h3>
+                    <p>
+                        Antes de confirmar uma transferência, confira
+                        o nome e os dados de quem vai receber.
+                    </p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h3>📞 Cuidado com ligações</h3>
+                    <p>
+                        Bancos não pedem sua senha ou código de segurança
+                        por telefone. Em caso de dúvida, desligue e procure
+                        os canais oficiais.
+                    </p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h3>🌐 Links desconhecidos</h3>
+                    <p>
+                        Não clique em links recebidos de desconhecidos.
+                        Eles podem levar a páginas falsas.
+                    </p>
+                </div>
+
+                <p>
+                    <strong>Dica importante:</strong> Se receber uma mensagem
+                    suspeita, não tenha pressa. Peça ajuda a alguém de confiança.
+                </p>
+
+            </section>
+
+        </div>
+
+        <div class="app-footer">
+
+            <a href="{{ url_for('home') }}" class="nav-item">
+                <span>🏠</span>
+                <span>INÍCIO</span>
+            </a>
+
+            <a href="{{ url_for('cadastro') }}" class="nav-item">
+                <span>👤</span>
+                <span>CADASTRO</span>
+            </a>
+
+            <a href="{{ url_for('tutoriais') }}" class="nav-item">
+                <span>📖</span>
+                <span>APRENDER</span>
+            </a>
+
+            <a href="{{ url_for('seguranca') }}" class="nav-item">
+                <span>🛡️</span>
+                <span>SEGURANÇA</span>
+            </a>
+
+            <a href="{{ url_for('ajuda') }}" class="nav-item">
+                <span>❓</span>
+                <span>AJUDA</span>
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+        let escalaFonte = 1;
+
+        function ajustarFonte(direcao) {
+            escalaFonte += direcao * 0.1;
+
+            if (escalaFonte > 1.5) {
+                escalaFonte = 1.5;
+            }
+
+            if (escalaFonte < 0.8) {
+                escalaFonte = 0.8;
+            }
+
+            document.getElementById("conteudo-seguranca").style.zoom =
+                escalaFonte;
+        }
+    </script>
+
+</body>
+</html>

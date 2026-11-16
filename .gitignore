@@ -1,6 +1,19 @@
-On branch main
-Untracked files:
-	.gitignore
 
-nothing added to commit but untracked files present
+# Arquivos temporários do Python
+__pycache__/
 *.pyc
+*.pyo
+
+# Banco de dados local
+assistente.db
+
+# Resultados de testes
+.coverage
+htmlcov/
+
+# Ambientes virtuais
+venv/
+.venv/
+
+# Arquivos do sistema operacional
+.DS_Store

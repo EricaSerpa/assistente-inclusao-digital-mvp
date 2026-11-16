@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Início - Assistente Digital</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="phone-container">
+
+        <div class="app-header">
+            ASSISTENTE DIGITAL
+        </div>
+
+        <div class="app-body">
+
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% for categoria, mensagem in mensagens %}
+                    <div class="flash-success">
+                        {{ mensagem }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+
+            <section class="tutorial-section home-section">
+
+                <h2>Bem-vindo(a)!</h2>
+
+                <p>
+                    Aprenda a utilizar a tecnologia de maneira simples,
+                    segura e no seu próprio ritmo.
+                </p>
+
+                <div class="home-card">
+
+                    <h3>👤 Primeiro acesso?</h3>
+
+                    <p>
+                        Faça seu cadastro para começar a utilizar
+                        o Assistente Digital.
+                    </p>
+
+                    <a href="{{ url_for('cadastro') }}" class="voltar-btn">
+                        FAZER CADASTRO
+                    </a>
+
+                </div>
+
+                <div class="home-card">
+
+                    <h3>📚 Quer aprender algo novo?</h3>
+
+                    <p>
+                        Encontre orientações passo a passo sobre
+                        aplicativos e recursos digitais.
+                    </p>
+
+                    <a href="{{ url_for('tutoriais') }}" class="voltar-btn">
+                        ACESSAR APRENDIZADO
+                    </a>
+
+                </div>
+
+                <div class="home-card">
+
+                    <h3>🛡️ Navegue com segurança</h3>
+
+                    <p>
+                        Aprenda a reconhecer golpes e proteger
+                        suas informações pessoais.
+                    </p>
+
+                    <a href="{{ url_for('seguranca') }}" class="voltar-btn">
+                        VER DICAS DE SEGURANÇA
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <div class="app-footer">
+
+            <a href="{{ url_for('home') }}" class="nav-item">
+                <span>🏠</span>
+                <span>INÍCIO</span>
+            </a>
+
+            <a href="{{ url_for('cadastro') }}" class="nav-item">
+                <span>👤</span>
+                <span>CADASTRO</span>
+            </a>
+
+            <a href="{{ url_for('tutoriais') }}" class="nav-item">
+                <span>📖</span>
+                <span>APRENDER</span>
+            </a>
+
+            <a href="{{ url_for('seguranca') }}" class="nav-item">
+                <span>🛡️</span>
+                <span>SEGURANÇA</span>
+            </a>
+
+            <a href="{{ url_for('ajuda') }}" class="nav-item">
+                <span>❓</span>
+                <span>AJUDA</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

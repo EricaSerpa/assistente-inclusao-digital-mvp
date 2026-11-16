@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ajuda e Suporte - Assistente Digital</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="phone-container">
+
+        <div class="app-header">
+            AJUDA E SUPORTE
+        </div>
+
+        <div class="app-body">
+
+            <div class="controle-fonte">
+                <span>Ajustar tamanho do texto:</span>
+
+                <button type="button" class="fonte-btn"
+                    onclick="ajustarFonte(1)"
+                    aria-label="Aumentar tamanho do texto">
+                    A+
+                </button>
+
+                <button type="button" class="fonte-btn"
+                    onclick="ajustarFonte(-1)"
+                    aria-label="Diminuir tamanho do texto">
+                    A−
+                </button>
+            </div>
+
+            <section class="tutorial-section ajuda-section"
+                id="conteudo-ajuda">
+
+                <h2>Como podemos ajudar?</h2>
+
+                <p>
+                    Estamos aqui para ajudar você a utilizar a tecnologia
+                    com mais tranquilidade.
+                </p>
+
+                <div class="tutorial-card">
+                    <h3>📖 Precisa aprender a usar um aplicativo?</h3>
+                    <p>
+                        Acesse a área Aprender e escolha um dos assuntos
+                        disponíveis. Cada aula apresenta orientações
+                        passo a passo.
+                    </p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h3>🔊 Dificuldade para ler?</h3>
+                    <p>
+                        Dentro das aulas, utilize o botão OUVIR TUTORIAL
+                        para escutar as orientações. Você também pode
+                        aumentar ou diminuir o tamanho da letra.
+                    </p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h3>🛡️ Recebeu uma mensagem suspeita?</h3>
+                    <p>
+                        Consulte a área Segurança antes de clicar em links
+                        ou compartilhar informações pessoais.
+                    </p>
+                </div>
+
+                <div class="tutorial-card">
+                    <h3>🤝 Peça ajuda a alguém de confiança</h3>
+                    <p>
+                        Se tiver dúvidas sobre uma mensagem, transferência
+                        ou aplicativo, não tenha pressa. Converse com alguém
+                        de confiança antes de continuar.
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+
+        <div class="app-footer">
+
+            <a href="{{ url_for('home') }}" class="nav-item">
+                <span>🏠</span>
+                <span>INÍCIO</span>
+            </a>
+
+            <a href="{{ url_for('cadastro') }}" class="nav-item">
+                <span>👤</span>
+                <span>CADASTRO</span>
+            </a>
+
+            <a href="{{ url_for('tutoriais') }}" class="nav-item">
+                <span>📖</span>
+                <span>APRENDER</span>
+            </a>
+
+            <a href="{{ url_for('seguranca') }}" class="nav-item">
+                <span>🛡️</span>
+                <span>SEGURANÇA</span>
+            </a>
+
+            <a href="{{ url_for('ajuda') }}" class="nav-item">
+                <span>❓</span>
+                <span>AJUDA</span>
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+        let escalaFonte = 1;
+
+        function ajustarFonte(direcao) {
+            escalaFonte += direcao * 0.1;
+
+            if (escalaFonte > 1.5) {
+                escalaFonte = 1.5;
+            }
+
+            if (escalaFonte < 0.8) {
+                escalaFonte = 0.8;
+            }
+
+            document.getElementById("conteudo-ajuda").style.zoom =
+                escalaFonte;
+        }
+    </script>
+
+</body>
+</html>
+
