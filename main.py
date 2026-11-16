@@ -1,6 +1,7 @@
 
 # Assistente de Inclusão Digital para Terceira Idade
 # Módulo Principal de Inicialização (MVP Integrado com Flask e Web UI)
+import os
 
 from flask import Flask, render_template, request, flash, redirect, url_for
 from banco import inicializar_banco, salvar_usuario_db
@@ -11,7 +12,7 @@ from tutorial import listar_tutoriais, LISTA_TUTORIAIS, obter_tutorial
 # Inicialização do Flask
 app = Flask(__name__)
 
-app.secret_key = "chave-local-mvp-assistente"
+app.secret_key = os.environ.get("SECRET_KEY", "chave-local-mvp-assistente")
 
 
 # ==============================
